@@ -8,18 +8,19 @@ public class MouseControl : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; // убирание курсора
     }
 
     private void FixedUpdate()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+        // получение движения курсором
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime; 
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        xRotation -= mouseY; // ? локальная координата мыши 
+        xRotation = Mathf.Clamp(xRotation, -90, 90); // держит значение между -90 и 90 для ограничения вертикального обзора;
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        PlayerModel.Rotate(Vector3.up * mouseX);
+        transform.localRotation = Quaternion.Euler(xRotation, 0, 0); // поворот камеры по y
+        PlayerModel.Rotate(Vector3.up * mouseX); // поворот персонажа по x
     }
 }

@@ -13,25 +13,43 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool OnGround;
     [SerializeField] private float JumpHeight = 1;
 
-    private void FixedUpdate()
+    private void Update()
+    {
+        Movement();
+    }
+
+    private void Movement()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        CharController.Move(move * speed * Time.deltaTime);
+        Vector3 move = transform.right * x + transform.forward * z; // получение вектора движения на x z
+        CharController.Move(move * speed * Time.deltaTime); // движение 
 
         velocity.y += gravity * Time.deltaTime;
-        CharController.Move(velocity * Time.deltaTime);
+        CharController.Move(velocity * Time.deltaTime); // движение по y
 
-        OnGround = Physics.CheckSphere(GroundChecker.position, CheckerRadius, GroundLayer);
+        OnGround = Physics.CheckSphere(GroundChecker.position, CheckerRadius, GroundLayer); // проверка на колизию с землей
 
-        if (Input.GetKey(KeyCode.Space) && OnGround)
+        if (Input.GetKey(KeyCode.Space) && OnGround) // прыжок
         {
             velocity.y = Mathf.Sqrt(JumpHeight * -2 * gravity);
         }
 
-        if (velocity.y < 0 && OnGround)
+        if (Input.GetKey(KeyCode.LeftControl)) // присесть
+        {
+            Debug.Log("sit");
+            transform.localScale = new Vector3(1, 0.5f, 1);
+            speed = 3;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl)) // обнуление после приседания
+        {
+            if (OnGround) { velocity.y = Mathf.Sqrt(0.5f * -2 * gravity); }
+            transform.localScale = new Vector3(1, 1, 1); 
+            speed = 5;
+        }
+
+        if (velocity.y < 0 && OnGround) // обнуление скорости свободного падения
         {
             velocity.y = -2;
         }
