@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         CharController.Move(velocity * Time.deltaTime);
 
-        OnGround = Physics.CheckSphere(move, CheckerRadius, GroundLayer);
+        OnGround = Physics.CheckSphere(GroundChecker.position, CheckerRadius, GroundLayer);
 
         if (Input.GetKey(KeyCode.Space) && OnGround)
         {
