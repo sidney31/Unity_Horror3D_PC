@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterController CharController;
+    [SerializeField] private GameObject door;
     [SerializeField] private float speed = 5;
     [SerializeField] private Vector3 velocity;
     [SerializeField] private float gravity = -9.8f;
@@ -52,6 +53,12 @@ public class PlayerController : MonoBehaviour
         if (velocity.y < 0 && OnGround) // обнуление скорости свободного падения
         {
             velocity.y = -2;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("mouse 0");
+            door.GetComponent<DoorLogic>().MoveDoor();
         }
     }
 }
