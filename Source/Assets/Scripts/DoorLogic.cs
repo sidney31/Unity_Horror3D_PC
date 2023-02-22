@@ -36,7 +36,7 @@ public class DoorLogic : MonoBehaviour
         }
     }
 
-    public void MoveDoor()
+    public void DoorInteractive()
     {
         switch (GetDoorState())
         {

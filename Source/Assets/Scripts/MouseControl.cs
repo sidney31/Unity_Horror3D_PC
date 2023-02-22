@@ -6,12 +6,9 @@ public class MouseControl : MonoBehaviour
     [SerializeField] private float sensitivity = 200;
     [SerializeField] private Transform PlayerModel;
     [SerializeField] private float xRotation = 0;
-    [SerializeField] private GameObject slider;
 
     private void Update()
     {
-        sensitivity = slider.GetComponent<Slider>().value;
-
         // получение движения курсором
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime; 
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;

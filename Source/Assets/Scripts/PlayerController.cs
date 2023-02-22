@@ -4,7 +4,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterController CharController;
     [SerializeField] private GameObject door;
-    [SerializeField] private float speed = 5;
+    [SerializeField] private float CurrentSpeed;
+    [SerializeField] private float WalkSpeed = 3;
+    [SerializeField] private float SitSpeed = 2;
     [SerializeField] private Vector3 velocity;
     [SerializeField] private float gravity = -9.8f;
 
@@ -13,6 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer;
     [SerializeField] private bool OnGround;
     [SerializeField] private float JumpHeight = 1;
+
+    private void Start()
+    {
+        CurrentSpeed = WalkSpeed;    
+    }
 
     private void Update()
     {
@@ -25,7 +32,7 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z; // получение вектора движения на x z
-        CharController.Move(move * speed * Time.deltaTime); // движение 
+        CharController.Move(move * CurrentSpeed * Time.deltaTime); // движение 
 
         velocity.y += gravity * Time.deltaTime;
         CharController.Move(velocity * Time.deltaTime); // движение по y
@@ -41,13 +48,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("sit");
             transform.localScale = new Vector3(1, 0.5f, 1);
-            speed = 3;
+            CurrentSpeed = SitSpeed;
         }
         if (Input.GetKeyUp(KeyCode.LeftControl)) // обнуление после приседания
         {
             if (OnGround) { velocity.y = Mathf.Sqrt(0.5f * -2 * gravity); }
-            transform.localScale = new Vector3(1, 1, 1); 
-            speed = 5;
+            transform.localScale = new Vector3(1, 1, 1);
+            CurrentSpeed = SitSpeed;
         }
 
         if (velocity.y < 0 && OnGround) // обнуление скорости свободного падения
@@ -55,10 +62,9 @@ public class PlayerController : MonoBehaviour
             velocity.y = -2;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Взаимодействие с дверью
         {
-            Debug.Log("mouse 0");
-            door.GetComponent<DoorLogic>().MoveDoor();
+            door.GetComponent<DoorLogic>().DoorInteractive();
         }
     }
 }
