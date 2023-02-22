@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl)) // присесть
         {
-            Debug.Log("sit");
             transform.localScale = new Vector3(1, 0.5f, 1);
             CurrentSpeed = SitSpeed;
         }
