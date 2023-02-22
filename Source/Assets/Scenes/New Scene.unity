@@ -292,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharController: {fileID: 49091076}
   door: {fileID: 2006523423}
+  spotlight: {fileID: 1059268655}
   CurrentSpeed: 0
   WalkSpeed: 3
   SitSpeed: 2
