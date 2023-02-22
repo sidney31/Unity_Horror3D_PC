@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterController CharController;
     [SerializeField] private GameObject door;
+    [SerializeField] private GameObject spotlight;
     [SerializeField] private float CurrentSpeed;
     [SerializeField] private float WalkSpeed = 3;
     [SerializeField] private float SitSpeed = 2;
@@ -65,6 +66,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) // ¬заимодействие с дверью
         {
             door.GetComponent<DoorLogic>().DoorInteractive();
+        }
+        if (Input.GetKeyDown(KeyCode.K)) // де/активаци€ фонарика
+        {
+            spotlight.SetActive(!spotlight.activeSelf);
         }
     }
 }
