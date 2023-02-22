@@ -1,18 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MouseControl : MonoBehaviour
 {
     [SerializeField] private float sensitivity = 200;
     [SerializeField] private Transform PlayerModel;
     [SerializeField] private float xRotation = 0;
+    [SerializeField] private GameObject slider;
 
-    private void Start()
+    private void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked; // убирание курсора
-    }
+        sensitivity = slider.GetComponent<Slider>().value;
 
-    private void FixedUpdate()
-    {
         // получение движения курсором
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime; 
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
