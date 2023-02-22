@@ -7,6 +7,11 @@ public class MouseControl : MonoBehaviour
     [SerializeField] private Transform PlayerModel;
     [SerializeField] private float xRotation = 0;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         // получение движения курсором
