@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class PlayerKeys : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
-    [SerializeField] private GameObject door;
     [SerializeField] private GameObject spotlight;
     [SerializeField] private float WalkSpeed = 3;
     [SerializeField] private float SitSpeed = 2;
@@ -16,13 +15,14 @@ public class PlayerKeys : MonoBehaviour
     [SerializeField] private float NextJumpTime;
 
     [SerializeField] private GameObject PopupMenu;
+    [SerializeField] private LayerMask DoorLayer;
 
     private void Start()
     {
         NextJumpTime = 0;
         WalkSpeed = PlayerController.WalkSpeed;
         SitSpeed = PlayerController.SitSpeed;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -56,11 +56,6 @@ public class PlayerKeys : MonoBehaviour
             playerController.velocity.y = -2;
         }
 
-        if (Input.GetMouseButtonDown(0)) // Взаимодействие с дверью
-        {
-            door.GetComponent<DoorLogic>().DoorInteractive();
-        }
-
         if (Input.GetKeyDown(KeyCode.F)) // де/активация фонарика
         {
             spotlight.SetActive(!spotlight.activeSelf);
@@ -69,7 +64,7 @@ public class PlayerKeys : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) // открытие меню
         {
             PopupMenu.SetActive(!PopupMenu.activeSelf);
-            Cursor.visible = PopupMenu.activeSelf;
+            Cursor.lockState = PopupMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
         }
 
         if (Input.inputString != null) // режимы фонарика

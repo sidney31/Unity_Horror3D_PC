@@ -8,16 +8,16 @@ public class ButtonManager : MonoBehaviour
 
     public void ToGame()
     {
-        SceneManager.LoadScene(GameSceneNumber);
+        SceneManager.LoadScene(GameSceneNumber); // загрузка игровой сцены
     }
 
     public void ToMenu()
     {
-        SceneManager.LoadScene(MenuSceneNumber);
+        SceneManager.LoadScene(MenuSceneNumber); // загрузка меню сцены
     }
 
     public void CloseApp()
     {
-        Application.Quit();
+        Application.Quit(); // закрытие игры
     }
 }

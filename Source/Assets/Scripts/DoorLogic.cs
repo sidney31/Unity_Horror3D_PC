@@ -4,10 +4,21 @@ using UnityEngine.ProBuilder.Shapes;
 public class DoorLogic : MonoBehaviour
 {
     [SerializeField] private Animator anim;
+    [SerializeField] private Transform player;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        player = GameObject.Find("Player").transform;
+        anim = GetComponentInParent<Animator>();
+    }
+
+    private void OnMouseDown() // детект контакта с дверью
+    {
+        if (Input.GetMouseButtonDown(0) && Vector3.Distance(transform.position, player.position) <= 1.5f)
+        {
+            DoorInteractive();
+        }
+
     }
 
     private void DoorClose()
@@ -20,7 +31,7 @@ public class DoorLogic : MonoBehaviour
         anim.Play("DoorOpen", 0, 0);
     }
 
-    private string GetDoorState()
+    private string GetDoorState() 
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("DoorOpen"))
         {
@@ -36,7 +47,7 @@ public class DoorLogic : MonoBehaviour
         }
     }
 
-    public void DoorInteractive()
+    public void DoorInteractive() 
     {
         switch (GetDoorState())
         {
