@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
+        if (ButtonManager.Instance.PausePopup.activeSelf)
+        {
+            return;
+        }
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 

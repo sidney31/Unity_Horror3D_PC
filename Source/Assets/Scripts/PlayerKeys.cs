@@ -1,8 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.UI;
 
 public class PlayerKeys : MonoBehaviour
 {
@@ -14,7 +10,6 @@ public class PlayerKeys : MonoBehaviour
     [SerializeField] private float JumpRate = 0.5f;
     [SerializeField] private float NextJumpTime;
 
-    [SerializeField] private GameObject PopupMenu;
     [SerializeField] private LayerMask DoorLayer;
 
     private void Start()
@@ -63,8 +58,7 @@ public class PlayerKeys : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) // открытие меню
         {
-            PopupMenu.SetActive(!PopupMenu.activeSelf);
-            Cursor.lockState = PopupMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
+            ButtonManager.Instance.ShowOrHidePauseMenu();
         }
 
         if (Input.inputString != null) // режимы фонарика
@@ -75,12 +69,6 @@ public class PlayerKeys : MonoBehaviour
                 spotlight.GetComponent<Light>().intensity = number;
             }
         }
-
-        /*
-            float mouseWheel = Input.GetAxis("Mouse ScrollWheel"); // радиус света
-            mouseWheel = Mathf.Clamp(mouseWheel, -1, 1);
-            spotlight.GetComponent<Light>().range -= mouseWheel * 3;
-        */
     }
 
 }

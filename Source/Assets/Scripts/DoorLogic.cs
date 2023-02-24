@@ -1,10 +1,11 @@
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 
 public class DoorLogic : MonoBehaviour
 {
     [SerializeField] private Animator anim;
     [SerializeField] private Transform player;
+    [SerializeField] private float nextTimeAbilityDoorInteractive = 0;
+    [SerializeField] private float DoorInteractiveRate = 0.7f;
 
     private void Start()
     {
@@ -14,9 +15,12 @@ public class DoorLogic : MonoBehaviour
 
     private void OnMouseDown() // детект контакта с дверью
     {
-        if (Input.GetMouseButtonDown(0) && Vector3.Distance(transform.position, player.position) <= 1.5f)
+        if (Input.GetMouseButtonDown(0) &&
+            Vector3.Distance(transform.position, player.position) <= 2 &&
+            Time.time >= nextTimeAbilityDoorInteractive)
         {
             DoorInteractive();
+            nextTimeAbilityDoorInteractive = Time.time + DoorInteractiveRate;
         }
 
     }
