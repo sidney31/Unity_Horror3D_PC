@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -27,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (ButtonManager.Instance.PausePopup.activeSelf)
+        if (ButtonManager.Instance.PauseMenu.activeSelf)
         {
             return;
         }

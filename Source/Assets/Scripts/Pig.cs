@@ -17,6 +17,4 @@ public class Pig : MonoBehaviour
         temp.z = 0;
         transform.rotation = temp;
     }
-
-
 }

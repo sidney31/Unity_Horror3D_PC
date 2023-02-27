@@ -9,12 +9,16 @@ public class PlayerKeys : MonoBehaviour
     [SerializeField] private float JumpHeight = 1;
     [SerializeField] private float JumpRate = 0.5f;
     [SerializeField] private float NextJumpTime;
+    [SerializeField] private float SitRate = 0.5f;
+    [SerializeField] private float NextSitTime;
+    [SerializeField] private bool Sit;
 
     [SerializeField] private LayerMask DoorLayer;
 
     private void Start()
     {
         NextJumpTime = 0;
+        NextSitTime = 0;
         WalkSpeed = PlayerController.WalkSpeed;
         SitSpeed = PlayerController.SitSpeed;
         Cursor.lockState = CursorLockMode.Locked;
@@ -33,17 +37,23 @@ public class PlayerKeys : MonoBehaviour
             NextJumpTime = Time.time + JumpRate;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl)) // присесть
+        if (Input.GetKey(KeyCode.LeftControl) && Time.time >= NextSitTime && !Sit) // присесть
         {
             transform.localScale = new Vector3(1, 0.5f, 1);
             playerController.CurrentSpeed = SitSpeed;
+            NextSitTime = Time.time + SitRate;
+            Sit = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl)) // обнуление после приседания
+        if (Input.GetKeyUp(KeyCode.LeftControl) && Sit) // обнуление после приседания
         {
-            if (playerController.OnGround) { playerController.velocity.y = Mathf.Sqrt(0.5f * -2.5f * playerController.gravity); }
+            if (playerController.OnGround)
+            {
+                playerController.velocity.y = Mathf.Sqrt(0.35f * -2.5f * playerController.gravity);
+            }
             transform.localScale = new Vector3(1, 1, 1);
             playerController.CurrentSpeed = WalkSpeed;
+            Sit = false;
         }
 
         if (playerController.velocity.y < 0 && playerController.OnGround) // обнуление скорости свободного падения

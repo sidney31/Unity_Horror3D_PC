@@ -7,8 +7,9 @@ public class ButtonManager : MonoBehaviour
 
     [SerializeField] private int GameSceneNumber;
     [SerializeField] private int MenuSceneNumber;
-    [SerializeField] public GameObject PausePopup;
-
+    [SerializeField] public GameObject PauseMenu;
+    //[SerializeField] public GameObject MainButtons;
+    //[SerializeField] public GameObject SettingsMenu;
 
     private void Start()
     {
@@ -39,7 +40,13 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowOrHidePauseMenu()
     {
-        PausePopup.SetActive(!PausePopup.activeSelf);
-        Cursor.lockState = PausePopup.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
+        PauseMenu.SetActive(!PauseMenu.activeSelf);
+        Cursor.lockState = PauseMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
     }
+
+    //public void ShowOrHideSettingsMenu()
+    //{
+    //    MainButtons.SetActive(!MainButtons.activeSelf);
+    //    SettingsMenu.SetActive(!SettingsMenu.activeSelf);
+    //}
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MouseControl : MonoBehaviour
 {
-    [SerializeField] private float sensitivity = 200;
+    [SerializeField] private float sensitivity = 150;
     [SerializeField] private Transform PlayerModel;
     [SerializeField] private float xRotation = 0;
 
@@ -12,7 +12,7 @@ public class MouseControl : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime; 
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
-        if (ButtonManager.Instance.PausePopup.activeSelf)
+        if (ButtonManager.Instance.PauseMenu.activeSelf)
         {
             return;
         }
