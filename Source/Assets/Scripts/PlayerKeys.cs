@@ -1,9 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerKeys : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
-    [SerializeField] private GameObject spotlight;
     [SerializeField] private float WalkSpeed = 3;
     [SerializeField] private float SitSpeed = 2;
     [SerializeField] private float JumpHeight = 1;
@@ -61,9 +61,10 @@ public class PlayerKeys : MonoBehaviour
             playerController.velocity.y = -2;
         }
 
-        if (Input.GetKeyDown(KeyCode.F)) // де/активация фонарика
+        if (Input.GetKeyDown(KeyCode.F) && ToolsManager.Instance.GetToolInHands().type == "Flashlight") // де/активация фонарика
         {
-            spotlight.SetActive(!spotlight.activeSelf);
+            Light flashlight = ToolsManager.Instance.Hands.GetComponentInChildren<Light>();
+            flashlight.enabled = (!flashlight.enabled);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) // открытие меню
@@ -74,9 +75,10 @@ public class PlayerKeys : MonoBehaviour
         if (Input.inputString != null) // режимы фонарика
         {
             bool isNumber = int.TryParse(Input.inputString, out int number);
+            Light flashlight = ToolsManager.Instance.Hands.GetComponentInChildren<Light>();
             if (isNumber && number >= 1 && number <= 3)
             {
-                spotlight.GetComponent<Light>().intensity = number;
+                flashlight.intensity = number;
             }
         }
     }

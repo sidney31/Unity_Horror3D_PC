@@ -8,14 +8,15 @@ public class MouseControl : MonoBehaviour
 
     private void Update()
     {
-        // получение движения курсором
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime; 
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-
         if (ButtonManager.Instance.PauseMenu.activeSelf)
         {
             return;
         }
+
+        // получение движения курсором
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity; 
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
 
         xRotation -= mouseY; // ? локальная координата мыши 
         xRotation = Mathf.Clamp(xRotation, -90, 90); // держит значение между -90 и 90 для ограничения вертикального обзора;
