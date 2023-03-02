@@ -1,6 +1,4 @@
-using System.Linq;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class ToolsManager : MonoBehaviour
 {
@@ -25,11 +23,6 @@ public class ToolsManager : MonoBehaviour
         SetToolInHands(ToolsInInventory[0]);    
     }
 
-    private void Update()
-    {
-        SwitchToolInHands();
-    }
-
     public Tool GetToolInHands()
     {
         return ToolInHands;
@@ -52,26 +45,16 @@ public class ToolsManager : MonoBehaviour
         ToolInHands.index = tool.index;
     }
 
-    private void SwitchToolInHands()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) && GetToolInHands().index > 0)
-        {
-            SetToolInHands(ToolsInInventory[GetToolInHands().index-1]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && GetToolInHands().index < ToolsInInventory.Length-1)
-        {
-            SetToolInHands(ToolsInInventory[GetToolInHands().index+1]);
-        }
-    }
 
     public bool AddToolInInventory(Tool tool)
     {
-        if (ToolsInInventory.Length < InventorySize) 
+        for (int i = 0; i < InventorySize; i++)
         {
-            ToolsInInventory.Append(tool);
-            UpdateToolsIndex();
-            return true;
+            if (GetToolsInInvenory()[i] == null)
+            {
+                ToolsInInventory[i] = tool;
+                return true;
+            }
         }
 
         return false;
@@ -85,5 +68,10 @@ public class ToolsManager : MonoBehaviour
             tool.index = index;
             index++;
         }
+    }
+
+    public Tool[] GetToolsInInvenory()
+    {
+        return ToolsInInventory;
     }
 }
