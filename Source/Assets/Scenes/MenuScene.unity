@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 0d2fc355de2871a4fa9543f3c596d36d, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: db9ca96cd3c102b4ab48ab1a036b9126, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 5200019f3c41f1846ad3d058a5277364, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -781,8 +781,6 @@ MonoBehaviour:
   GameSceneNumber: 1
   MenuSceneNumber: 0
   PauseMenu: {fileID: 0}
-  MainButtons: {fileID: 0}
-  SettingsMenu: {fileID: 0}
 --- !u!4 &782554039
 Transform:
   m_ObjectHideFlags: 0
