@@ -1,4 +1,5 @@
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerKeys : MonoBehaviour
 {
@@ -10,9 +11,10 @@ public class PlayerKeys : MonoBehaviour
     [SerializeField] private float NextJumpTime;
     [SerializeField] private float SitRate = 0.5f;
     [SerializeField] private float NextSitTime;
-    [SerializeField] private int MaxFlashlightIntensity = 3;
+    [SerializeField] private float MaxFlashlightIntensity = 1.5f;
     [SerializeField] private bool Sit;
     [SerializeField] private LayerMask DoorLayer;
+    [SerializeField] private Tool ToolInHands;
 
     private void Start()
     {
@@ -26,10 +28,18 @@ public class PlayerKeys : MonoBehaviour
     private void Update()
     {
         CheckKeysPress();
+
     }
 
     private void CheckKeysPress()
     {
+        ToolInHands = ToolsManager.Instance.GetToolInHands();
+
+        if (ToolInHands?.type != Tool.ToolType.flashlight)
+        {
+            Camera.main.GetComponentInChildren<Light>().intensity = 0;
+        }
+
         if (Input.GetKey(KeyCode.Space) && _PlayerController.OnGround && Time.time >= NextJumpTime) // прыжок
         {
             _PlayerController.velocity.y = Mathf.Sqrt(JumpHeight * -2 * _PlayerController.gravity);
@@ -57,17 +67,18 @@ public class PlayerKeys : MonoBehaviour
             _PlayerController.velocity.y = -2;
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && ToolsManager.Instance.GetToolInHands().type == "Flashlight") // режимы фонариков
+        if (Input.GetKeyDown(KeyCode.F) && ToolInHands?.type == Tool.ToolType.flashlight) // режимы фонариков
         {
-            Light flashlight = ToolsManager.Instance.Hands.GetComponentInChildren<Light>();
+            //Light flashlight = ToolsManager.Instance.Hands.GetComponentInChildren<Light>();
+            Light flashlight = Camera.main.GetComponentInChildren<Light>();
 
-            if (flashlight.intensity == MaxFlashlightIntensity)
+            if (flashlight.intensity >= MaxFlashlightIntensity)
             {
                 flashlight.intensity = 0;
             }
             else
             {
-                flashlight.intensity += 1;
+                flashlight.intensity += MaxFlashlightIntensity / 3;
             }
         }
 
@@ -76,14 +87,14 @@ public class PlayerKeys : MonoBehaviour
             ButtonManager.Instance.ShowOrHidePauseMenu();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && ToolsManager.Instance.GetToolInHands().index > 0) // переключение предметов
+        if (Input.GetKeyDown(KeyCode.Q) && ToolInHands?.index > 0) // переключение предметов
         {
-            ToolsManager.Instance.SetToolInHands(ToolsManager.Instance.GetToolsInInvenory()[ToolsManager.Instance.GetToolInHands().index - 1]);
+            ToolsManager.Instance.SetToolInHands(ToolsManager.Instance.GetToolsInInvenory()[ToolInHands.index - 1]);
         }
         
-        if (Input.GetKeyDown(KeyCode.E) && ToolsManager.Instance.GetToolInHands().index < ToolsManager.Instance.GetToolsInInvenory().Length - 1)
+        if (Input.GetKeyDown(KeyCode.E) && ToolInHands?.index < ToolsManager.Instance.GetToolsInInvenory().Length - 1)
         {
-            ToolsManager.Instance.SetToolInHands(ToolsManager.Instance.GetToolsInInvenory()[ToolsManager.Instance.GetToolInHands().index + 1]);
+            ToolsManager.Instance.SetToolInHands(ToolsManager.Instance.GetToolsInInvenory()[ToolInHands.index + 1]);
         }
     }
 

@@ -14,7 +14,7 @@ public class ToolAvailableForTaking : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.position) < 2)
         {
-            CanvasManager.Instance.SetHintText($"Испульзйте ЛКМ, чтобы подобрать {ToolData.type}");
+            CanvasManager.Instance.SetHintText($"Испульзйте ЛКМ, чтобы подобрать {ToolData.RUName.ToLower()}");
             if (Input.GetMouseButton(0))
             {
                 if (ToolsManager.Instance.AddToolInInventory(ToolData))

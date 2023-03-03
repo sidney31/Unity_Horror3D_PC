@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8823e1c4d09523f4eb6d4990bd6956ce, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  type: Key
-  model: {fileID: 919132149155446097, guid: c3e2f0606e5536c4dbd5f6ffd9e3ba1e, type: 3}
-  slot: 2
+  RUName: "\u043A\u043B\u044E\u0447"
+  type: 1
+  model: {fileID: 6207290208940577016, guid: 74903da8323df7943aa15a89b8943157, type: 3}
+  index: 1

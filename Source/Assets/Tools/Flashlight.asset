@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8823e1c4d09523f4eb6d4990bd6956ce, type: 3}
   m_Name: Flashlight
   m_EditorClassIdentifier: 
-  type: Flashlight
+  RUName: "\u0444\u043E\u043D\u0430\u0440\u0438\u043A"
+  type: 0
   model: {fileID: 2545970069300322990, guid: 714a985037ca2da41bd55dde576aa09b, type: 3}
   index: 0
