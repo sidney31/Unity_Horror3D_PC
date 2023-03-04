@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        CurrentSpeed = WalkSpeed;    
+        CurrentSpeed = WalkSpeed;
+
     }
 
     private void Update()
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (ButtonManager.Instance.PauseMenu.activeSelf)
+        if (ButtonManager.instance.PauseMenu.activeSelf)
         {
             return;
         }

@@ -3,34 +3,38 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public static ButtonManager Instance = null;
+    public static ButtonManager instance = null;
 
-    [SerializeField] private int GameSceneNumber;
-    [SerializeField] private int MenuSceneNumber;
+    [SerializeField] public int GameSceneNumber;
+    [SerializeField] public int MenuSceneNumber;
+    [SerializeField] public int SettingsSceneNumber;
+
     [SerializeField] public GameObject PauseMenu;
-    //[SerializeField] public GameObject MainButtons;
-    //[SerializeField] public GameObject SettingsMenu;
 
-    private void Start()
+    private void Awake()
     {
-        if (!Instance)
+        if (!instance)
         {
-            Instance = this;
+            instance = this;
+            return;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 
     public void LoadGameScene()
     {
         SceneManager.LoadScene(GameSceneNumber); // загрузка игровой сцены
+        PauseMenu = GameObject.FindWithTag("PauseMenu");
     }
 
     public void LoadMenuScene()
     {
         SceneManager.LoadScene(MenuSceneNumber); // загрузка меню сцены
+    }
+
+    public void LoadSettingsScene()
+    {
+        SceneManager.LoadScene(SettingsSceneNumber); // загрузка меню сцены
     }
 
     public void CloseApplication()

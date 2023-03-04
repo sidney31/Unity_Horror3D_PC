@@ -14,12 +14,12 @@ public class ToolAvailableForTaking : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.position) < 2)
         {
-            CanvasManager.Instance.SetHintText($"Испульзйте ЛКМ, чтобы подобрать {ToolData.RUName.ToLower()}");
+            CanvasManager.instance.SetHintText($"Испульзйте ЛКМ, чтобы подобрать {ToolData.RUName.ToLower()}");
             if (Input.GetMouseButton(0))
             {
-                if (ToolsManager.Instance.AddToolInInventory(ToolData))
+                if (ToolsManager.instance.AddToolInInventory(ToolData))
                 {
-                    CanvasManager.Instance.ClearHintText();
+                    CanvasManager.instance.ClearHintText();
                     Destroy(transform.parent.gameObject);
                 }
             }
@@ -28,6 +28,6 @@ public class ToolAvailableForTaking : MonoBehaviour
 
     public void OnMouseExit()
     {
-        CanvasManager.Instance.ClearHintText();
+        CanvasManager.instance.ClearHintText();
     }
 }

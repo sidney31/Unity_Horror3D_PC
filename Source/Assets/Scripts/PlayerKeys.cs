@@ -33,7 +33,7 @@ public class PlayerKeys : MonoBehaviour
 
     private void CheckKeysPress()
     {
-        ToolInHands = ToolsManager.Instance.GetToolInHands();
+        ToolInHands = ToolsManager.instance.GetToolInHands();
 
         if (ToolInHands?.type != Tool.ToolType.flashlight)
         {
@@ -56,7 +56,7 @@ public class PlayerKeys : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.LeftControl) && Sit) // обнуление после приседания
         {
-            _PlayerController.velocity.y = Mathf.Sqrt(0.35f * -2.5f * _PlayerController.gravity);
+            _PlayerController.velocity.y = Mathf.Sqrt(-1 * _PlayerController.gravity * 1); // e = mgh 
             GetComponent<CharacterController>().height = 2;
             _PlayerController.CurrentSpeed = WalkSpeed;
             Sit = false;
@@ -84,17 +84,17 @@ public class PlayerKeys : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) // открытие меню
         {
-            ButtonManager.Instance.ShowOrHidePauseMenu();
+            ButtonManager.instance.ShowOrHidePauseMenu();
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && ToolInHands?.index > 0) // переключение предметов
         {
-            ToolsManager.Instance.SetToolInHands(ToolsManager.Instance.GetToolsInInvenory()[ToolInHands.index - 1]);
+            ToolsManager.instance.SetToolInHands(ToolsManager.instance.GetToolsInInvenory()[ToolInHands.index - 1]);
         }
         
-        if (Input.GetKeyDown(KeyCode.E) && ToolInHands?.index < ToolsManager.Instance.GetToolsInInvenory().Length - 1)
+        if (Input.GetKeyDown(KeyCode.E) && ToolInHands?.index < ToolsManager.instance.GetToolsInInvenory().Length - 1)
         {
-            ToolsManager.Instance.SetToolInHands(ToolsManager.Instance.GetToolsInInvenory()[ToolInHands.index + 1]);
+            ToolsManager.instance.SetToolInHands(ToolsManager.instance.GetToolsInInvenory()[ToolInHands.index + 1]);
         }
     }
 

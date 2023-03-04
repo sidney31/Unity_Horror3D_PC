@@ -6,9 +6,14 @@ public class MouseControl : MonoBehaviour
     [SerializeField] private Transform PlayerModel;
     [SerializeField] private float xRotation = 0;
 
+    private void Start()
+    {
+        sensitivity = SettingsManager.instance.GetSensitivity();
+    }
+
     private void Update()
     {
-        if (ButtonManager.Instance.PauseMenu.activeSelf)
+        if (ButtonManager.instance.PauseMenu.activeSelf)
         {
             return;
         }

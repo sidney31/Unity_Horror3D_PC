@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ToolsManager : MonoBehaviour
 {
-    public static ToolsManager Instance = null;
+    public static ToolsManager instance = null;
     [SerializeField] private Tool[] ToolsInInventory = new Tool[3];
     [SerializeField] private Tool ToolInHands;
     [SerializeField] public GameObject Hands;
@@ -10,17 +10,18 @@ public class ToolsManager : MonoBehaviour
     [SerializeField] public Tool FlashLight;
     [SerializeField] public Tool Key;
 
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+            return;
+        }
+        Destroy(gameObject);
+    }
+
     private void Start()
     {
-        if (!Instance)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         SpawnNewToolInCords(FlashLight, Vector3.zero, Quaternion.identity);
         SpawnNewToolInCords(Key, new Vector3(1, -.2f, 3), Quaternion.identity);
      
