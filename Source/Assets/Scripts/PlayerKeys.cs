@@ -69,17 +69,7 @@ public class PlayerKeys : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && ToolInHands?.type == Tool.ToolType.flashlight) // режимы фонариков
         {
-            //Light flashlight = ToolsManager.Instance.Hands.GetComponentInChildren<Light>();
-            Light flashlight = Camera.main.GetComponentInChildren<Light>();
-
-            if (flashlight.intensity >= MaxFlashlightIntensity)
-            {
-                flashlight.intensity = 0;
-            }
-            else
-            {
-                flashlight.intensity += MaxFlashlightIntensity / 3;
-            }
+            Camera.main.GetComponentInChildren<Flashlight>().NextFlashState();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)) // открытие меню
