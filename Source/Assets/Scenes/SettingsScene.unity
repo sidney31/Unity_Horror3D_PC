@@ -1792,6 +1792,7 @@ MonoBehaviour:
   GameSceneNumber: 1
   MenuSceneNumber: 0
   SettingsSceneNumber: 2
+  LastSceneNumber: 0
   PauseMenu: {fileID: 0}
 --- !u!4 &770912176
 Transform:
@@ -1894,7 +1895,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 770912175}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: LoadMenuScene
+        m_MethodName: LoadLastScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2178,10 +2179,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 35297674}
   m_HandleRect: {fileID: 235687341}
   m_Direction: 0
-  m_MinValue: 1
+  m_MinValue: 0
   m_MaxValue: 10
   m_WholeNumbers: 1
-  m_Value: 2
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

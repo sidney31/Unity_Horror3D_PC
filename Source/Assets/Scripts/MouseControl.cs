@@ -8,7 +8,7 @@ public class MouseControl : MonoBehaviour
 
     private void Start()
     {
-        sensitivity = SettingsManager.instance.GetSensitivity();
+        sensitivity = PlayerPrefs.GetInt("Sensitivity");
     }
 
     private void Update()

@@ -34,7 +34,14 @@ public class ButtonManager : MonoBehaviour
 
     public void LoadSettingsScene()
     {
+        PlayerPrefs.SetInt("LastSceneNumber", SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(SceneManager.GetActiveScene().name + "  " + SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(SettingsSceneNumber); // загрузка меню сцены
+    }
+
+    public void LoadLastScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetInt("LastSceneNumber"));
     }
 
     public void CloseApplication()

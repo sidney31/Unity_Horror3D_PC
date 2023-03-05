@@ -45,10 +45,6 @@ public class SettingsManager : MonoBehaviour
         LabelSens.text = val.ToString();
         PlayerPrefs.SetInt("Sensitivity", Sensitivity);
     }
-    public float GetSensitivity()
-    {
-        return Sensitivity;
-    }
 
     public void SetTextureQuality(int val)
     {
