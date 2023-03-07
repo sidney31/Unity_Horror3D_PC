@@ -12,9 +12,10 @@ public class ToolAvailableForTaking : MonoBehaviour
 
     public void OnMouseOver()
     {
-        if (Vector3.Distance(transform.position, player.position) < 2)
+        Debug.Log("overlap");
+        if (Vector3.Distance(transform.position, player.position) < 100)
         {
-            CanvasManager.instance.SetHintText($"Èñïóëüçéòå ËÊÌ, ÷òîáû ïîäîáðàòü {ToolData.RUName.ToLower()}");
+            CanvasManager.instance.SetHintText($"ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ð›ÐšÐœ, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¿Ð¾Ð´Ð¾Ð±Ñ€Ð°Ñ‚ÑŒ {ToolData.RUName.ToLower()}");
             if (Input.GetMouseButton(0))
             {
                 if (ToolsManager.instance.AddToolInInventory(ToolData))
@@ -23,6 +24,10 @@ public class ToolAvailableForTaking : MonoBehaviour
                     Destroy(transform.parent.gameObject);
                 }
             }
+        }
+        else
+        {
+            CanvasManager.instance.ClearHintText();
         }
     }
 

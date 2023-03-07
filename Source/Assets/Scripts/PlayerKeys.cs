@@ -1,5 +1,4 @@
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerKeys : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class PlayerKeys : MonoBehaviour
     [SerializeField] private bool Sit;
     [SerializeField] private LayerMask DoorLayer;
     [SerializeField] private Tool ToolInHands;
+    [SerializeField] private float DefaultHeight = 1.7f;
 
     private void Start()
     {
@@ -22,13 +22,13 @@ public class PlayerKeys : MonoBehaviour
         NextSitTime = 0;
         WalkSpeed = PlayerController.WalkSpeed;
         SitSpeed = PlayerController.SitSpeed;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
+        _PlayerController.velocity = Vector3.zero;
     }
 
     private void Update()
     {
         CheckKeysPress();
-
     }
 
     private void CheckKeysPress()
@@ -40,13 +40,13 @@ public class PlayerKeys : MonoBehaviour
             Camera.main.GetComponentInChildren<Light>().intensity = 0;
         }
 
-        if (Input.GetKey(KeyCode.Space) && _PlayerController.OnGround && Time.time >= NextJumpTime) // прыжок
+        if (Input.GetKey(KeyCode.Space) && _PlayerController.OnGround && Time.time >= NextJumpTime) // пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             _PlayerController.velocity.y = Mathf.Sqrt(JumpHeight * -2 * _PlayerController.gravity);
             NextJumpTime = Time.time + JumpRate;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && Time.time >= NextSitTime && !Sit &&_PlayerController.OnGround) // присесть
+        if (Input.GetKey(KeyCode.LeftControl) && Time.time >= NextSitTime && !Sit &&_PlayerController.OnGround) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             GetComponent<CharacterController>().height = 1;
             _PlayerController.CurrentSpeed = SitSpeed;
@@ -54,30 +54,30 @@ public class PlayerKeys : MonoBehaviour
             Sit = true; 
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) && Sit) // обнуление после приседания
+        if (Input.GetKeyUp(KeyCode.LeftControl) && Sit) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             _PlayerController.velocity.y = Mathf.Sqrt(-1 * _PlayerController.gravity * 1); // e = mgh 
-            GetComponent<CharacterController>().height = 2;
+            GetComponent<CharacterController>().height = DefaultHeight;
             _PlayerController.CurrentSpeed = WalkSpeed;
             Sit = false;
         }
 
-        if (_PlayerController.velocity.y < 0 && _PlayerController.OnGround) // обнуление скорости свободного падения
+        if (_PlayerController.velocity.y < 0 && _PlayerController.OnGround) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             _PlayerController.velocity.y = -2;
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && ToolInHands?.type == Tool.ToolType.flashlight) // режимы фонариков
+        if (Input.GetKeyDown(KeyCode.F) && ToolInHands?.type == Tool.ToolType.flashlight) // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             Camera.main.GetComponentInChildren<Flashlight>().NextFlashState();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) // открытие меню
+        if (Input.GetKeyDown(KeyCode.Escape)) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         {
             ButtonManager.instance.ShowOrHidePauseMenu();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && ToolInHands?.index > 0) // переключение предметов
+        if (Input.GetKeyDown(KeyCode.Q) && ToolInHands?.index > 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
             ToolsManager.instance.SetToolInHands(ToolsManager.instance.GetToolsInInvenory()[ToolInHands.index - 1]);
         }

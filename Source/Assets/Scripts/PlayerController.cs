@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         CurrentSpeed = WalkSpeed;
-
     }
 
     private void Update()
@@ -35,12 +34,12 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z; // получение вектора движения на x z
-        CharController.Move(move * CurrentSpeed * Time.deltaTime); // движение 
+        Vector3 move = transform.right * x + transform.forward * z; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ x z
+        CharController.Move(move * CurrentSpeed * Time.deltaTime); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 
         velocity.y += gravity * Time.deltaTime;
-        CharController.Move(velocity * Time.deltaTime); // движение по y
+        CharController.Move(velocity * Time.deltaTime); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ y
 
-        OnGround = Physics.CheckSphere(GroundChecker.position, CheckerRadius, GroundLayer); // проверка на колизию с землей
+        OnGround = Physics.CheckSphere(GroundChecker.position, CheckerRadius, GroundLayer); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     }
 }
