@@ -22,7 +22,7 @@ public class PlayerKeys : MonoBehaviour
         NextSitTime = 0;
         WalkSpeed = PlayerController.WalkSpeed;
         SitSpeed = PlayerController.SitSpeed;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         _PlayerController.velocity = Vector3.zero;
     }
 

@@ -54,10 +54,4 @@ public class ButtonManager : MonoBehaviour
         PauseMenu.SetActive(!PauseMenu.activeSelf);
         Cursor.lockState = PauseMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
     }
-
-    //public void ShowOrHideSettingsMenu()
-    //{
-    //    MainButtons.SetActive(!MainButtons.activeSelf);
-    //    SettingsMenu.SetActive(!SettingsMenu.activeSelf);
-    //}
 }

@@ -1,66 +1,66 @@
+using System.Collections;
+using TreeEditor;
 using UnityEngine;
 
 public class DoorLogic : MonoBehaviour
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private Transform player;
-    [SerializeField] private float nextTimeAbilityDoorInteractive = 0;
-    [SerializeField] private float DoorInteractiveRate = 0.7f;
+    [SerializeField] private bool CanDoorInteractive;
+    [SerializeField] private bool DoorIsOpen;
 
     private void Start()
     {
-        player = GameObject.Find("Player").transform;
-        anim = GetComponentInParent<Animator>();
-    }
-
-    private void OnMouseDown() // детект контакта с дверью
-    {
-        if (Input.GetMouseButtonDown(0) &&
-            Vector3.Distance(transform.position, player.position) <= 2 &&
-            Time.time >= nextTimeAbilityDoorInteractive)
-        {
-            DoorInteractive();
-            nextTimeAbilityDoorInteractive = Time.time + DoorInteractiveRate;
-        }
-
-    }
-
-    private void DoorClose()
-    {
-        anim.Play("DoorClose", 0, 0);
-    }
-
-    private void DoorOpen()
-    {
-        anim.Play("DoorOpen", 0, 0);
-    }
-
-    private string GetDoorState() 
-    {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("DoorOpen"))
-        {
-            return "DoorOpen";
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("DoorClose"))
-        {
-            return "DoorClose";
-        }
-        else
-        {
-            return "idle";
-        }
+        CanDoorInteractive = true;
+        DoorIsOpen = false;
     }
 
     public void DoorInteractive() 
     {
-        switch (GetDoorState())
+        if (!CanDoorInteractive)
+            return;
+
+        switch (DoorIsOpen)
         {
-            case "DoorOpen":
-                DoorClose();
+            case true:
+                StartCoroutine(CloseDoor());
                 break;
-            default:
-                DoorOpen();
+            case false:
+                StartCoroutine(OpenDoor());
                 break;
         }
+    }
+
+    private IEnumerator OpenDoor()
+    {
+        float StartYRotation = transform.parent.rotation.y;
+        CanDoorInteractive = false;
+        Debug.Log($"StartRotation {StartYRotation}. EndRotation {StartYRotation - 90}");
+        while (transform.parent.rotation.y >= StartYRotation - 90)
+        {
+            Quaternion TempRotation = transform.parent.rotation;
+            TempRotation.y -= 1;
+            transform.parent.rotation = TempRotation;
+            Debug.Log(transform.parent.rotation);
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        CanDoorInteractive = true;
+        DoorIsOpen = true;
+    }
+    private IEnumerator CloseDoor()
+    {
+        Debug.Log("closing...");
+        CanDoorInteractive = false;
+        float StartYRotation = transform.parent.rotation.y;
+        while (transform.parent.rotation.y >= StartYRotation + 90)
+        {
+            Quaternion TempRotation = transform.parent.rotation;
+            TempRotation.y += 1;
+            transform.parent.rotation = TempRotation;
+            Debug.Log(transform.parent.rotation.y);
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        CanDoorInteractive = true;
+        DoorIsOpen = false;
+        Debug.Log("closed");
     }
 }
