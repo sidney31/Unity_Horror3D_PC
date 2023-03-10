@@ -12,7 +12,6 @@ public class PlayerKeys : MonoBehaviour
     [SerializeField] private float NextSitTime;
     [SerializeField] private float MaxFlashlightIntensity = 1.5f;
     [SerializeField] private bool Sit;
-    [SerializeField] private LayerMask DoorLayer;
     [SerializeField] private Tool ToolInHands;
     [SerializeField] private float DefaultHeight = 1.7f;
 

@@ -10,7 +10,6 @@ public class PlayerRaycast : MonoBehaviour
         MainCamera = Camera.main;    
     }
 
-
     private void Update()
     {
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
@@ -22,6 +21,7 @@ public class PlayerRaycast : MonoBehaviour
 
             if (hit.collider.tag == "Door")
             {
+                Debug.Log("door");
                 Debug.DrawLine(ray.origin, hit.point, Color.red);
                 if (Input.GetMouseButton(0))
                     hit.collider.GetComponent<DoorLogic>().DoorInteractive();
@@ -29,6 +29,7 @@ public class PlayerRaycast : MonoBehaviour
 
             if (hit.collider.tag == "Tool")
             {
+                Debug.Log("tool");
                 Debug.DrawLine(ray.origin, hit.point, Color.blue);
                 if (Input.GetMouseButton(0))
                     hit.collider.GetComponent<ToolAvailableForTaking>().TakeToolInHands();
