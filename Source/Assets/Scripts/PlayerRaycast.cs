@@ -21,19 +21,26 @@ public class PlayerRaycast : MonoBehaviour
 
             if (hit.collider.tag == "Door")
             {
-                Debug.Log("door");
+                CanvasManager.instance.SetHintText("Нажмите ЛКМ, чтобы открыть дверь.");
                 Debug.DrawLine(ray.origin, hit.point, Color.red);
                 if (Input.GetMouseButton(0))
                     hit.collider.GetComponent<DoorLogic>().DoorInteractive();
             }
-
-            if (hit.collider.tag == "Tool")
+            else if (hit.collider.tag == "Tool")
             {
-                Debug.Log("tool");
+                CanvasManager.instance.SetHintText($"Нажмите ЛКМ, чтобы взять {hit.collider.GetComponent<ToolAvailableForTaking>().ToolData.RUName}.");
                 Debug.DrawLine(ray.origin, hit.point, Color.blue);
                 if (Input.GetMouseButton(0))
                     hit.collider.GetComponent<ToolAvailableForTaking>().TakeToolInHands();
             }
+            else
+            {
+                CanvasManager.instance.ClearHintText();
+            }
+        }
+        else
+        {
+            CanvasManager.instance.ClearHintText();
         }
     }
 }

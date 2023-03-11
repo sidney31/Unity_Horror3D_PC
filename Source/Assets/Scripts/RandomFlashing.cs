@@ -1,16 +1,24 @@
+using System.Collections;
 using UnityEngine;
 
 public class RandomFlashing : MonoBehaviour
 {
+    [SerializeField] private Vector2 Intensity;
+    [SerializeField] private Vector2 Speed;
+    [SerializeField] private Light LightSource;
 
-    private void Update()
+    private void Start()
     {
-        int rand = Random.Range(0, 100);
+        LightSource = GetComponent<Light>();
+        StartCoroutine(RandomFlashLight());
+    }
 
-        if (rand == 0)
+    private IEnumerator RandomFlashLight()
+    {
+        while (true)
         {
-            GetComponent<Light>().intensity = Random.Range(1, 4);
-            GetComponent<Light>().enabled = !GetComponent<Light>().enabled;
+            LightSource.intensity = Random.Range(Intensity.x, Intensity.y);
+            yield return new WaitForSeconds(Random.Range(Speed.x, Speed.y)  * Time.deltaTime);
         }
     }
 }
