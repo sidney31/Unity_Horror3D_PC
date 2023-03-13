@@ -15,32 +15,23 @@ public class PlayerRaycast : MonoBehaviour
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, MaxRayDist))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.DrawLine(ray.origin, hit.point, Color.white);
+            if (Physics.Raycast(ray, out hit, MaxRayDist))
+            {
+                if (hit.collider.tag == "Door")
+                {
+                    CanvasManager.instance.SetHintText("Нажмите ЛКМ, чтобы открыть дверь.");
+                    hit.collider.GetComponentInParent<DoorLogic>().DoorInteractive();
+                }
 
-            if (hit.collider.tag == "Door")
-            {
-                CanvasManager.instance.SetHintText("Нажмите ЛКМ, чтобы открыть дверь.");
-                Debug.DrawLine(ray.origin, hit.point, Color.red);
-                if (Input.GetMouseButton(0))
-                    hit.collider.GetComponent<DoorLogic>().DoorInteractive();
-            }
-            else if (hit.collider.tag == "Tool")
-            {
-                CanvasManager.instance.SetHintText($"Нажмите ЛКМ, чтобы взять {hit.collider.GetComponent<ToolAvailableForTaking>().ToolData.RUName}.");
-                Debug.DrawLine(ray.origin, hit.point, Color.blue);
-                if (Input.GetMouseButton(0))
+                if (hit.collider.tag == "Tool")
+                {
+                    CanvasManager.instance.SetHintText($"Нажмите ЛКМ, чтобы взять {hit.collider.GetComponent<ToolAvailableForTaking>().ToolData.RUName}.");
                     hit.collider.GetComponent<ToolAvailableForTaking>().TakeToolInHands();
-            }
-            else
-            {
-                CanvasManager.instance.ClearHintText();
+                }
             }
         }
-        else
-        {
-            CanvasManager.instance.ClearHintText();
-        }
+        CanvasManager.instance.ClearHintText();
     }
 }

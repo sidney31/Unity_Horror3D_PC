@@ -1,65 +1,41 @@
-using System.Collections;
 using UnityEngine;
 
 public class DoorLogic : MonoBehaviour
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private bool CanDoorInteractive;
-    [SerializeField] private bool DoorIsOpen;
 
-    private void Start()
+    public void DoorInteractive()
     {
-        CanDoorInteractive = true;
-        DoorIsOpen = false;
-    }
-
-    public void DoorInteractive() 
-    {
-        if (!CanDoorInteractive)
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1)
             return;
 
-        switch (DoorIsOpen)
+        switch (GetCurrentAnim())
         {
-            case true:
-                StartCoroutine(CloseDoor());
+            case "DoorIdle":
+                DoorOpen();
                 break;
-            case false:
-                StartCoroutine(OpenDoor());
+            case "DoorClose":
+                DoorOpen();
+                break;
+            case "DoorOpen":
+                DoorClose();
                 break;
         }
     }
 
-    private IEnumerator OpenDoor()
+    private void DoorOpen()
     {
-        float StartYRotation = transform.parent.rotation.y;
-        CanDoorInteractive = false;
-        Debug.Log($"StartRotation {StartYRotation}. EndRotation {StartYRotation - 90}");
-        while (transform.parent.rotation.y >= StartYRotation - 90)
-        {
-            Quaternion TempRotation = transform.parent.rotation;
-            TempRotation.y -= 1;
-            transform.parent.rotation = TempRotation;
-            Debug.Log(transform.parent.rotation);
-            yield return new WaitForSecondsRealtime(0.01f);
-        }
-        CanDoorInteractive = true;
-        DoorIsOpen = true;
+        anim.Play("DoorOpen");
     }
-    private IEnumerator CloseDoor()
+
+    private void DoorClose()
     {
-        Debug.Log("closing...");
-        CanDoorInteractive = false;
-        float StartYRotation = transform.parent.rotation.y;
-        while (transform.parent.rotation.y >= StartYRotation + 90)
-        {
-            Quaternion TempRotation = transform.parent.rotation;
-            TempRotation.y += 1;
-            transform.parent.rotation = TempRotation;
-            Debug.Log(transform.parent.rotation.y);
-            yield return new WaitForSecondsRealtime(0.01f);
-        }
-        CanDoorInteractive = true;
-        DoorIsOpen = false;
-        Debug.Log("closed");
+        anim.Play("DoorClose");
+    }
+
+    private string GetCurrentAnim()
+    {
+        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+        return clipInfo[0].clip.name;
     }
 }

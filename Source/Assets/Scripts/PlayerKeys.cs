@@ -55,7 +55,7 @@ public class PlayerKeys : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.LeftControl) && Sit) // ��������� ����� ����������
         {
-            _PlayerController.velocity.y = Mathf.Sqrt(-1 * _PlayerController.gravity * 1); // e = mgh 
+            _PlayerController.velocity.y = Mathf.Sqrt(-.7f * _PlayerController.gravity * 1); // e = sqrt(mgh) 
             GetComponent<CharacterController>().height = DefaultHeight;
             _PlayerController.CurrentSpeed = WalkSpeed;
             Sit = false;

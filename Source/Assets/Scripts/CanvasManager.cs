@@ -23,7 +23,7 @@ public class CanvasManager : MonoBehaviour
         {
             return;
         }
-        StartCoroutine(ShowHint());
+        StartCoroutine(ShowHint()); 
         hint.text = text;
     }
 
