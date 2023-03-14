@@ -35,7 +35,7 @@ public class CanvasManager : MonoBehaviour
 
     private IEnumerator ShowHint()
     {
-        for (float i = 0; i <= 1; i++)
+        for (float i = 0; i == 1; i += .1f)
         {
             Color TempColor = hint.color;
             TempColor.a = i;
@@ -46,7 +46,7 @@ public class CanvasManager : MonoBehaviour
 
     private IEnumerator HideHint()
     {
-        for (float i = 1; i >= 0; i--)
+        for (float i = 1; i == 0; i -= .1f)
         {
             Color TempColor = hint.color;
             TempColor.a = i;

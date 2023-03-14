@@ -15,23 +15,34 @@ public class PlayerRaycast : MonoBehaviour
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(ray, out hit, MaxRayDist))
         {
-            if (Physics.Raycast(ray, out hit, MaxRayDist))
+            if (hit.collider.tag == "Door")
             {
-                if (hit.collider.tag == "Door")
+
+                CanvasManager.instance.SetHintText("Нажмите ЛКМ, чтобы открыть дверь.");
+
+                if (Input.GetMouseButtonDown(0))
                 {
-                    CanvasManager.instance.SetHintText("Нажмите ЛКМ, чтобы открыть дверь.");
                     hit.collider.GetComponentInParent<DoorLogic>().DoorInteractive();
                 }
-
-                if (hit.collider.tag == "Tool")
+            }
+            else if (hit.collider.tag == "Tool")
+            {
+                CanvasManager.instance.SetHintText($"Нажмите ЛКМ, чтобы взять {hit.collider.GetComponent<ToolAvailableForTaking>().ToolData.RUName}.");
+                if (Input.GetMouseButtonDown(0))
                 {
-                    CanvasManager.instance.SetHintText($"Нажмите ЛКМ, чтобы взять {hit.collider.GetComponent<ToolAvailableForTaking>().ToolData.RUName}.");
                     hit.collider.GetComponent<ToolAvailableForTaking>().TakeToolInHands();
                 }
             }
+            else
+            {
+                CanvasManager.instance.ClearHintText();
+            }
         }
-        CanvasManager.instance.ClearHintText();
+        else
+        {
+            CanvasManager.instance.ClearHintText();
+        }
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 public class DoorLogic : MonoBehaviour
 {
     [SerializeField] private Animator anim;
+    [SerializeField] private Transform ObjectsChecker;
+    [SerializeField] private LayerMask ObjectsLayer;
 
     public void DoorInteractive()
     {
@@ -17,6 +19,9 @@ public class DoorLogic : MonoBehaviour
             case "DoorClose":
                 DoorOpen();
                 break;
+            case "DoorBlocked":
+                DoorOpen();
+                break;
             case "DoorOpen":
                 DoorClose();
                 break;
@@ -25,6 +30,13 @@ public class DoorLogic : MonoBehaviour
 
     private void DoorOpen()
     {
+        if (ObjectsArroundIsExist())
+        {
+            
+            anim.Play("DoorBlocked");
+            return;
+        }
+
         anim.Play("DoorOpen");
     }
 
@@ -37,5 +49,25 @@ public class DoorLogic : MonoBehaviour
     {
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
         return clipInfo[0].clip.name;
+    }
+    private bool ObjectsArroundIsExist()
+    {
+        Collider[] ObjectsArround = Physics.OverlapBox(ObjectsChecker.position,
+                                    ObjectsChecker.localScale / 2, 
+                                    Quaternion.identity, 
+                                    ObjectsLayer);
+
+        if (ObjectsArround.Length == 0)
+            return false;
+        
+        return true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!ObjectsChecker)
+            return;
+
+        Gizmos.DrawCube(ObjectsChecker.position, ObjectsChecker.localScale);
     }
 }
