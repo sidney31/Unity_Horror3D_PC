@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7568981301363493554}
   - component: {fileID: 3637964106235796941}
   - component: {fileID: 8794427075907408400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: seat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3703883150200767471}
   - component: {fileID: 4949410336113084871}
   - component: {fileID: 7792604137469467651}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 'wood '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3707178991110339488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
