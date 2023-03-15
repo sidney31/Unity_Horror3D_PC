@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ToolsManager : MonoBehaviour
@@ -52,6 +53,7 @@ public class ToolsManager : MonoBehaviour
         GameObject NewTool = Instantiate(tool.model, Hands.transform.position, Quaternion.identity);
         NewTool.transform.parent = Hands.transform;
         NewTool.transform.rotation = Hands.transform.rotation;
+        NewTool.transform.GetChild(0).tag = "Untagged";
         ToolInHands.index = tool.index;
     }
 

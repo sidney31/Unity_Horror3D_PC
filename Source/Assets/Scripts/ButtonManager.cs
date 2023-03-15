@@ -7,9 +7,10 @@ public class ButtonManager : MonoBehaviour
 
     [SerializeField] public int GameSceneNumber;
     [SerializeField] public int MenuSceneNumber;
-    [SerializeField] public int SettingsSceneNumber;
 
     [SerializeField] public GameObject PauseMenu;
+    [SerializeField] public GameObject SettingsMenu;
+    [SerializeField] public GameObject MainMenu;
 
     private void Awake()
     {
@@ -24,7 +25,6 @@ public class ButtonManager : MonoBehaviour
     public void LoadGameScene()
     {
         SceneManager.LoadScene(GameSceneNumber); // загрузка игровой сцены
-        PauseMenu = GameObject.FindWithTag("PauseMenu");
     }
 
     public void LoadMenuScene()
@@ -32,26 +32,28 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene(MenuSceneNumber); // загрузка меню сцены
     }
 
-    public void LoadSettingsScene()
-    {
-        PlayerPrefs.SetInt("LastSceneNumber", SceneManager.GetActiveScene().buildIndex);
-        Debug.Log(SceneManager.GetActiveScene().name + "  " + SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene(SettingsSceneNumber); // загрузка меню сцены
-    }
-
-    public void LoadLastScene()
-    {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("LastSceneNumber"));
-    }
-
     public void CloseApplication()
     {
         Application.Quit(); // закрытие игры
     }
 
-    public void ShowOrHidePauseMenu()
+    public void ShowOrHidePauseMenu() // открытие/закрытие меню
     {
+        if (SettingsMenu.activeSelf)
+            return;
+
         PauseMenu.SetActive(!PauseMenu.activeSelf);
         Cursor.lockState = PauseMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
     }
+
+    public void ShowOrHideSettingsMenu() // открытие/закрытие настроек
+    {
+        SettingsMenu.SetActive(!SettingsMenu.activeSelf);
+
+        if (PauseMenu)
+            PauseMenu.SetActive(!SettingsMenu.activeSelf);
+        if (MainMenu)
+            MainMenu.SetActive(!SettingsMenu.activeSelf);
+    }
+
 }

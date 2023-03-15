@@ -14,13 +14,14 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private AmbientOcclusion AmbientOcclusion;
     [SerializeField] private Bloom Bloom;
     [SerializeField] private MotionBlur MotionBlur;
+
     [Space]
     [SerializeField] private Toggle AmbientOcclusionToggle;
     [SerializeField] private Toggle BloomToggle;
     [SerializeField] private Toggle MotionBlurToggle;
 
     [Header("Sensitivity")]
-    [SerializeField] private TMP_Text LabelSens;
+    [SerializeField] private TMP_Text SensValue;
     [SerializeField] private Slider Slider;
     [SerializeField] private int Sensitivity = 3;
 
@@ -31,7 +32,10 @@ public class SettingsManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
 
+    private void Start()
+    {
         Slider.value = PlayerPrefs.GetInt("Sensitivity");
         Dropdown.value = PlayerPrefs.GetInt("TextureQuality");
         AmbientOcclusionToggle.isOn = Convert.ToBoolean(PlayerPrefs.GetInt("AmbientOcclusion"));
@@ -42,7 +46,7 @@ public class SettingsManager : MonoBehaviour
     public void SetSensitivity(float val)
     {
         Sensitivity = Convert.ToInt32(val);
-        LabelSens.text = val.ToString();
+        SensValue.text = val.ToString();
         PlayerPrefs.SetInt("Sensitivity", Sensitivity);
     }
 

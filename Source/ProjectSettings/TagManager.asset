@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - PauseMenu
   - Tool
   - Door
   layers:
@@ -16,7 +15,7 @@ TagManager:
   - UI
   - Door
   - PostProcessing
-  - 
+  - Objects
   - 
   - 
   - 

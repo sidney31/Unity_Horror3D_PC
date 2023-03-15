@@ -32,6 +32,10 @@ public class PlayerKeys : MonoBehaviour
 
     private void CheckKeysPress()
     {
+        if (ButtonManager.instance.PauseMenu.activeSelf ||
+            ButtonManager.instance.SettingsMenu.activeSelf)
+            return;
+
         ToolInHands = ToolsManager.instance.GetToolInHands();
 
         if (ToolInHands?.type != Tool.ToolType.flashlight)

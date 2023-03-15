@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class DoorLogic : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animator animator;
     [SerializeField] private Transform ObjectsChecker;
     [SerializeField] private LayerMask ObjectsLayer;
 
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void DoorInteractive()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1)
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1)
             return;
 
         switch (GetCurrentAnim())
@@ -32,22 +37,21 @@ public class DoorLogic : MonoBehaviour
     {
         if (ObjectsArroundIsExist())
         {
-            
-            anim.Play("DoorBlocked");
+            animator.Play("DoorBlocked");
             return;
         }
 
-        anim.Play("DoorOpen");
+        animator.Play("DoorOpen");
     }
 
     private void DoorClose()
     {
-        anim.Play("DoorClose");
+        animator.Play("DoorClose");
     }
 
     private string GetCurrentAnim()
     {
-        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
         return clipInfo[0].clip.name;
     }
     private bool ObjectsArroundIsExist()

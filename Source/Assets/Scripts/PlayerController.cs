@@ -26,10 +26,9 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (ButtonManager.instance.PauseMenu.activeSelf)
-        {
+        if (ButtonManager.instance.PauseMenu.activeSelf ||
+            ButtonManager.instance.SettingsMenu.activeSelf)
             return;
-        }
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");

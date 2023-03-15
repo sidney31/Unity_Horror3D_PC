@@ -13,10 +13,9 @@ public class MouseControl : MonoBehaviour
 
     private void Update()
     {
-        if (ButtonManager.instance.PauseMenu.activeSelf)
-        {
+        if (ButtonManager.instance.PauseMenu.activeSelf || 
+            ButtonManager.instance.SettingsMenu.activeSelf)
             return;
-        }
 
         // получение движения курсором
         float mouseX = Input.GetAxis("Mouse X") * sensitivity; 
